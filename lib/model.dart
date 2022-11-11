@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
-
 class Model {
+  static final Model _model = Model._internal();
+
   factory Model() {
-    return _instance;
+    return _model;
   }
 
-  Model._constructor();
+  Model._internal();
 
   final List<String> _todoList = <String>[];
-  static final Model _instance = Model._constructor();
-
   List<String> get todoList => _todoList;
+
+  void addTask(String task) {
+    todoList.add(task);
+  }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'controller.dart';
-import 'model.dart';
 
 void main() {
-  runApp(Todo());
+  runApp(const Todo());
 }
 
 class Todo extends StatelessWidget {
@@ -16,17 +15,17 @@ class Todo extends StatelessWidget {
 }
 
 class TodoList extends StatefulWidget {
-  const TodoList({super.key});
+  TodoList({super.key});
+
+  final Controller controller = Controller();
 
   @override
   _TodoListState createState() => _TodoListState();
 }
 
 class _TodoListState extends State<TodoList> {
-  // save data
-  final Controller _controller = Controller();
-  // text field
   final TextEditingController _textFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +35,7 @@ class _TodoListState extends State<TodoList> {
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
           tooltip: 'Add Item',
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
     );
   }
 
@@ -44,7 +43,7 @@ class _TodoListState extends State<TodoList> {
     // Wrapping it inside a set state will notify
     // the app that the state has changed
     setState(() {
-      _controller.addToList(title);
+      widget.controller.addTask(title);
     });
     _textFieldController.clear();
   }
@@ -90,7 +89,7 @@ class _TodoListState extends State<TodoList> {
   // iterates through our todo list title
   List<Widget> _getItems() {
     final List<Widget> _todoWidgets = <Widget>[];
-    for (String title in _controller.todoList) {
+    for (String title in widget.controller.getTasks()) {
       _todoWidgets.add(_buildTodoItem(title));
     }
     return _todoWidgets;

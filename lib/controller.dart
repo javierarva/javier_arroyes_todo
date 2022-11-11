@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'model.dart';
 
 class Controller {
-  List<String> get todoList => Model().todoList;
+  List<String> getTasks() {
+    return Model().todoList;
+  }
 
-  void addToList(String title) {
-    Model().todoList.add(title);
+  void addTask(String task) {
+    Model().todoList.add(task);
   }
 }
