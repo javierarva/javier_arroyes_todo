@@ -7,6 +7,8 @@ void main() {
 }
 
 class Todo extends StatelessWidget {
+  const Todo({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: TodoList());
@@ -14,13 +16,15 @@ class Todo extends StatelessWidget {
 }
 
 class TodoList extends StatefulWidget {
+  const TodoList({super.key});
+
   @override
   _TodoListState createState() => _TodoListState();
 }
 
 class _TodoListState extends State<TodoList> {
   // save data
-  final List<String> _todoList = <String>[];
+  final Controller _controller = Controller();
   // text field
   final TextEditingController _textFieldController = TextEditingController();
   @override
@@ -40,7 +44,7 @@ class _TodoListState extends State<TodoList> {
     // Wrapping it inside a set state will notify
     // the app that the state has changed
     setState(() {
-      _todoList.add(title);
+      _controller.addToList(title);
     });
     _textFieldController.clear();
   }
@@ -86,7 +90,7 @@ class _TodoListState extends State<TodoList> {
   // iterates through our todo list title
   List<Widget> _getItems() {
     final List<Widget> _todoWidgets = <Widget>[];
-    for (String title in _todoList) {
+    for (String title in _controller.todoList) {
       _todoWidgets.add(_buildTodoItem(title));
     }
     return _todoWidgets;

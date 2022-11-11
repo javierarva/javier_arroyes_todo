@@ -5,7 +5,7 @@ class Model {
     return _instance;
   }
 
-  Model._constructor() {}
+  Model._constructor();
 
   final List<String> _todoList = <String>[];
   static final Model _instance = Model._constructor();
