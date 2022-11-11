@@ -31,7 +31,6 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(title: const Text('To-Do List')),
       body: ListView(children: _getItems()),
-      // add items to the to-do list
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
           tooltip: 'Add Item',
@@ -40,22 +39,17 @@ class _TodoListState extends State<TodoList> {
   }
 
   void _addTodoItem(String title) {
-    // Wrapping it inside a set state will notify
-    // the app that the state has changed
     setState(() {
       widget.controller.addTask(title);
     });
     _textFieldController.clear();
   }
 
-  // this Generate list of item widgets
   Widget _buildTodoItem(String title) {
     return ListTile(title: Text(title));
   }
 
-  // display a dialog for the user to enter items
-  Future<AlertDialog> _displayDialog(BuildContext context) async {
-    // alter the app state to show a dialog
+  Future<dynamic> _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -66,7 +60,6 @@ class _TodoListState extends State<TodoList> {
               decoration: const InputDecoration(hintText: 'Enter task here'),
             ),
             actions: <Widget>[
-              // add button
               TextButton(
                 child: const Text('ADD'),
                 onPressed: () {
@@ -83,10 +76,9 @@ class _TodoListState extends State<TodoList> {
               )
             ],
           );
-        }) as Future<AlertDialog>;
+        });
   }
 
-  // iterates through our todo list title
   List<Widget> _getItems() {
     final List<Widget> _todoWidgets = <Widget>[];
     for (String title in widget.controller.getTasks()) {
